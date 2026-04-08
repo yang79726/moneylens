@@ -14,7 +14,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install flet pandas openpyxl numpy
-      - run: flet build apk --name MoneyLens
+      - run: flet build apk
       - uses: actions/upload-artifact@v4
         with:
           name: MoneyLens-APK
