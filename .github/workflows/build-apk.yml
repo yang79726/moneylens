@@ -1,0 +1,21 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install flet pandas openpyxl numpy
+      - run: flet build apk --name MoneyLens
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MoneyLens-APK
+          path: build/apk/output/*.apk
