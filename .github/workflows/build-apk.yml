@@ -22,7 +22,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          pip install flet==0.21.2 pandas openpyxl numpy==1.26.4
+          pip install flet==0.21.2 pandas openpyxl
       
       - name: Accept Android licenses
         run: |
