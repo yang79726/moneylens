@@ -7,18 +7,18 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential python3-dev
+          sudo apt-get install -y build-essential python3-dev gfortran
       
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
+          python-version: '3.10'
       
       - uses: subosito/flutter-action@v2
         with:
@@ -27,9 +27,9 @@ jobs:
       
       - name: Install Python packages
         run: |
-          pip install --upgrade pip
-          pip install --only-binary :all: numpy pandas
-          pip install flet==0.21.2 openpyxl
+          pip install --upgrade pip setuptools wheel
+          pip install numpy==1.24.3
+          pip install pandas openpyxl flet==0.21.2
       
       - name: Accept Android licenses
         run: |
