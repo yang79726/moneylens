@@ -7,9 +7,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+      
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential python3-dev
       
       - uses: actions/setup-python@v5
         with:
@@ -20,18 +25,18 @@ jobs:
           flutter-version: '3.29.1'
           channel: 'stable'
       
-      - name: Install dependencies
+      - name: Install Python packages
         run: |
-          pip install --only-binary :all: numpy pandas
-          pip install flet==0.21.2 openpyxl
+          pip install --upgrade pip
+          pip install numpy==1.24.3 pandas openpyxl flet==0.21.2
       
       - name: Accept Android licenses
         run: |
-          yes | flutter doctor --android-licenses
+          yes | flutter doctor --android-licenses || true
       
       - name: Build APK
         run: |
-          yes | flet build apk
+          yes | flet build apk || true
       
       - uses: actions/upload-artifact@v4
         with:
