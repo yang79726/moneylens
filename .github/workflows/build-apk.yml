@@ -15,21 +15,19 @@ jobs:
         with:
           python-version: '3.12'
       
-      # 安装 Flutter
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.29.1'
           channel: 'stable'
       
-      - name: Install Python dependencies
-        run: pip install flet pandas openpyxl numpy
+      - name: Install dependencies
+        run: |
+          pip install flet==0.21.2 pandas openpyxl numpy
       
-      # 接受 Android 许可证
       - name: Accept Android licenses
         run: |
           yes | flutter doctor --android-licenses
       
-      # 打包 APK
       - name: Build APK
         run: |
           yes | flet build apk
