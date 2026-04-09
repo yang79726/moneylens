@@ -18,7 +18,7 @@ jobs:
       
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.9'
       
       - uses: subosito/flutter-action@v2
         with:
@@ -28,7 +28,8 @@ jobs:
       - name: Install Python packages
         run: |
           pip install --upgrade pip
-          pip install numpy==1.24.3 pandas openpyxl flet==0.21.2
+          pip install --only-binary :all: numpy pandas
+          pip install flet==0.21.2 openpyxl
       
       - name: Accept Android licenses
         run: |
@@ -36,7 +37,7 @@ jobs:
       
       - name: Build APK
         run: |
-          yes | flet build apk || true
+          yes | flet build apk
       
       - uses: actions/upload-artifact@v4
         with:
