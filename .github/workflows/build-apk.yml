@@ -10,11 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      
+      # 安装依赖
       - run: pip install flet pandas openpyxl numpy
-      - run: flet build apk --docker
+      
+      # 设置环境变量，自动同意所有提示
+      - name: Build APK
+        run: |
+          export FLUTTER_ROOT=/opt/flutter
+          export FLUTTER_VERSION=3.29.1
+          yes | flet build apk
+      
       - uses: actions/upload-artifact@v4
         with:
           name: MoneyLens-APK
